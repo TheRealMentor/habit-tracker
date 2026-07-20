@@ -1,6 +1,10 @@
 import { Router } from 'express'
+import { authenticateToken } from '../middleware/auth.ts'
 
 const router = Router()
+
+// Protect all the routes below with authentication
+router.use(authenticateToken)
 
 // Define your user-related routes here
 router.get('/', (req, res) => {

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { validateBody, validateParams } from '../middleware/validation.ts'
 import z from 'zod'
+import { authenticateToken } from '../middleware/auth.ts'
 
 const createHabitSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -11,6 +12,9 @@ const completeHabitSchema = z.object({
 })
 
 const router = Router()
+
+// Protect all the routes below with authentication
+router.use(authenticateToken)
 
 // Define your habit-related routes here
 router.get('/', (req, res) => {
